@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-test
+spec:
+  selector:
+    matchLabels:
+      app: http-test
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: http-test
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - http-test
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: container
+          image: ghcr.io/mccutchen/go-httpbin:2.18.3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
