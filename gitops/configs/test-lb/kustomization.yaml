@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: test-lb
 
 resources:
-  - deployment.yaml
+  - httpbin-svc.yaml
+  - httpbin.yaml
   - namespace.yaml
-  - svc.yaml

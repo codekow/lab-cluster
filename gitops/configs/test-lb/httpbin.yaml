@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: http-test
+  name: httpbin
 spec:
   selector:
     matchLabels:
-      app: http-test
+      app: httpbin
   replicas: 3
   template:
     metadata:
       labels:
-        app: http-test
+        app: httpbin
     spec:
       affinity:
         podAntiAffinity:
@@ -23,7 +23,7 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - http-test
+                        - httpbin
                 topologyKey: kubernetes.io/hostname
       containers:
         - name: container
