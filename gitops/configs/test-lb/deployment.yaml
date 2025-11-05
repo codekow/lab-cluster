@@ -28,6 +28,11 @@ spec:
       containers:
         - name: container
           image: ghcr.io/mccutchen/go-httpbin:2.18.3
+          env:
+            - name: HTTPBIN_ENV_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           ports:
             - containerPort: 8080
               protocol: TCP
