@@ -1,0 +1,43 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  labels:
+    machine.openshift.io/cluster-api-cluster: ocp-gm2xb
+    machine.openshift.io/cluster-api-machine-role: worker
+    machine.openshift.io/cluster-api-machine-type: worker
+  name: nab-03
+  namespace: openshift-machine-api
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: ocp-gm2xb
+      machine.openshift.io/cluster-api-machineset: nab-03
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: ocp-gm2xb
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: nab-03
+        machine.openshift.io/region: lab
+        machine.openshift.io/zone: nab-03
+    spec:
+      lifecycleHooks: {}
+      metadata: {}
+      providerSpec:
+        value:
+          apiVersion: baremetal.cluster.k8s.io/v1alpha1
+          customDeploy:
+            method: install_coreos
+          hostSelector:
+            matchLabels:
+              machine.openshift.io/zone: nab-03
+          image:
+            checksum: ''
+            url: ''
+          kind: BareMetalMachineProviderSpec
+          metadata:
+            creationTimestamp: null
+          userData:
+            name: worker-user-data-managed
