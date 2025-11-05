@@ -7,4 +7,4 @@ spec:
   addresses:
   - 10.6.0.81-10.6.0.89
   autoAssign: true
-  avoidBuggyIPs: false
+  avoidBuggyIPs: true  # avoid .0 .255
