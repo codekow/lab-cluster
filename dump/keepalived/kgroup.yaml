@@ -1,0 +1,19 @@
+apiVersion: redhatcop.redhat.io/v1alpha1
+kind: KeepalivedGroup
+metadata:
+  name: keepalivedgroup-workers
+  namespace: keepalived-operator
+spec:
+  blacklistRouterIDs:
+  # podman run quay.io/openshift/origin-baremetal-runtimecfg:4.5 vr-ids $(oc get cm cluster-config-v1 -n kube-system -o jsonpath='{.data.install-config}'| yq -r .metadata.name)
+    - 23
+    - 19
+    - 134
+  image: registry.redhat.io/openshift4/ose-keepalived-ipfailover
+  interface: enp1s0
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: ''
+  passwordAuth:
+    secretKey: password
+    secretRef:
+      name: vrrp-auth
